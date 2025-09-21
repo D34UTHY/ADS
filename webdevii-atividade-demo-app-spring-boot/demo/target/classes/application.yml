@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: demo
+
+  datasource:
+    url: jdbc:h2:mem:demo;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2   # acessar no navegador: http://localhost:9090/h2
+
+  jpa:
+    hibernate:
+      ddl-auto: none   # usa Flyway para criar tabelas, não o Hibernate
+    show-sql: true     # útil pra debugar queries
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/h2
+    baseline-on-migrate: true   # evita erros se banco não estiver vazio
+    validate-on-migrate: true
+
+server:
+  port: 9090
+
+logging:
+  level:
+    org.springframework.data.relational.core.conversion: DEBUG
